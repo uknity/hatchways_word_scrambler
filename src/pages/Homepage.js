@@ -1,26 +1,36 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import API from "../utils/API";
 
-function Homepage() {
-return (
-<div className="App">
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-);
+const Homepage = () => {
+	const [counter, setCounter] = useState();
+    const [displaySentence, setDisplaySentence] = useState("");
 
+	useEffect(() => {
+		loadGame();
+	});
+
+    
+	const loadGame = () => {
+        const sentenceNum = 1;
+		console.log("you are in loadgame function");
+		setCounter(sentenceNum);
+        console.log(counter);
+        API.getSentence(counter)
+        .then(res => {
+            setDisplaySentence(res.data.data.sentence);
+            // const displaySentence = res.data.data.sentence;
+            // console.log(displaySentence);
+        })
+        .catch(err => console.log(err));
+	};
+	return (
+		<div className="App">
+			<div className="page-container container-fluid">
+				<p>{displaySentence}</p>
+			</div>
+		</div>
+	);
 };
 
 export default Homepage;
-

@@ -4,6 +4,7 @@ import Homepage from "./pages/Homepage";
 import Outcome from "./pages/Outcome";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+
 function App() {
 	return (
 		<Router>
