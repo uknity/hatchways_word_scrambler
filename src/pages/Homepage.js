@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import API from "../utils/API";
 
 const Homepage = () => {
-	const [displaySentence, setDisplaySentence] = useState("");
-	const [scrambledSentence, setScrambledSentence] = useState("");
+	// const [displaySentence, setDisplaySentence] = useState("");
+	// const [scrambledSentence, setScrambledSentence] = useState("");
 
 	const counter = 1;
 
@@ -13,45 +13,44 @@ const Homepage = () => {
 	});
 
 	const scrambleWord = (word) => {
-		console.log(word);
 		var length = word.length;
-
 		var letterArr = word.split("");
-		console.log(letterArr);
 		letterArr.map((letter) => {
-
 			for (var i = 1; i <= length - 1; i++) {
 				var j = Math.floor(Math.random() * length);
 				var temp = letterArr[i];
 				letterArr[i] = letterArr[j];
 				letterArr[j] = temp;
-			};
-			
+			}
 		});
-		var scrambledWord = letterArr.join('');
-			console.log(scrambledWord);
-			return scrambledWord;
+		var scrambledWord = letterArr.join("");
+		console.log(scrambledWord);
+		return scrambledWord;
 	};
 
 	const scrambleSentence = (sentence) => {
+		const scrambledSentence = [];
 		const sentenceArr = sentence.split(" ");
-		sentenceArr.map((word) => {
+		sentenceArr.map((word, index) => {
 			if (word.length <= 2) {
+				scrambledSentence.push(word);
+				console.log(scrambledSentence);
 			} else {
-				var scrambledWord = scrambleWord(word);
-				console.log(scrambledWord);
-			};
-			var newSentence = sentenceArr.join(' ');
-			console.log(newSentence);
+				scrambleWord(word);
+				scrambledSentence.push();
+			}
 		});
-		// 
+		// sentence = sentenceArr.join('');
+		// console.log(sentence);
+		// return sentence;
+		console.log(scrambledSentence);
 	};
 
 	const loadGame = () => {
 		API.getSentence(counter)
 			.then((res) => {
-				setDisplaySentence(res.data.data.sentence);
-				scrambleSentence(displaySentence);
+				const unscrambledSentence = res.data.data.sentence;
+				scrambleSentence(unscrambledSentence);
 			})
 			.catch((err) => console.log(err));
 	};
@@ -59,7 +58,7 @@ const Homepage = () => {
 	return (
 		<div className="App">
 			<div className="page-container container-fluid">
-				<p>{displaySentence}</p>
+				<p>Hello</p>
 			</div>
 		</div>
 	);
