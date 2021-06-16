@@ -15,36 +15,40 @@ const Homepage = () => {
 	const scrambleWord = (word) => {
 		var length = word.length;
 		var letterArr = word.split("");
-		letterArr.map((letter) => {
-			for (var i = 1; i <= length - 1; i++) {
-				var j = Math.floor(Math.random() * length);
-				var temp = letterArr[i];
-				letterArr[i] = letterArr[j];
-				letterArr[j] = temp;
+		var firstLetter = letterArr[0];
+		var lastLetter = letterArr[length-1];
+		letterArr.pop();
+		letterArr.shift();
+		console.log(letterArr);
+		const scrambledInside = (letterArr) => {
+			for (var i = 0; i < length; i++) {
+					var j = Math.floor(Math.random() * length);
+					var temp = letterArr[i];
+					letterArr[i] = letterArr[j];
+					letterArr[j] = temp;
 			}
-		});
-		var scrambledWord = letterArr.join("");
+			return letterArr.join("");
+		}
+			
+		const scrambledWord = `${firstLetter}` + `${scrambledInside(letterArr)}` + `${lastLetter}`;
 		console.log(scrambledWord);
-		return scrambledWord;
 	};
 
 	const scrambleSentence = (sentence) => {
-		const scrambledSentence = [];
 		const sentenceArr = sentence.split(" ");
-		sentenceArr.map((word, index) => {
-			if (word.length <= 2) {
-				scrambledSentence.push(word);
-				console.log(scrambledSentence);
-			} else {
-				scrambleWord(word);
-				scrambledSentence.push();
-			}
-		});
-		// sentence = sentenceArr.join('');
-		// console.log(sentence);
-		// return sentence;
-		console.log(scrambledSentence);
+		
+		sentenceArr.map(word => {
+			if (word.length > 2) {
+				const scrambledWord = scrambleWord(word);
+					console.log(scrambledWord);
+				};
+			
+		})
+		
+			
+		
 	};
+
 
 	const loadGame = () => {
 		API.getSentence(counter)
