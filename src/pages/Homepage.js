@@ -1,11 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import API from "../utils/API";
+import "../../src/App.css";
 
 const Homepage = () => {
 	const [scrambledSentence, setScrambledSentence] = useState("");
 
-	const counter = 1;
+	const counter = 2;
 
 	useEffect(() => {
 		loadGame();
@@ -15,39 +16,33 @@ const Homepage = () => {
 		var length = word.length;
 		var letterArr = word.split("");
 		var firstLetter = letterArr[0];
-		var lastLetter = letterArr[length-1];
+		var lastLetter = letterArr[length - 1];
 		letterArr.pop();
 		letterArr.shift();
 		const scrambledInside = (letterArr) => {
-			for (var i = 0; i < length -2 ; i++) {
-					var j = Math.floor(Math.random() * length);
-					var temp = letterArr[i];
-					letterArr[i] = letterArr[j];
-					letterArr[j] = temp;
+			for (var i = 0; i < length - 2; i++) {
+				var j = Math.floor(Math.random() * length);
+				var temp = letterArr[i];
+				letterArr[i] = letterArr[j];
+				letterArr[j] = temp;
 			}
 			return letterArr.join("");
-		}
-			
-		// const scrambledWord = `${firstLetter}` + `${scrambledInside(letterArr)}` + `${lastLetter}`;
-		// return scrambledWord;
-		return(`${firstLetter}` + `${scrambledInside(letterArr)}` + `${lastLetter}`);
+		};
+		return `${firstLetter}` + `${scrambledInside(letterArr)}` + `${lastLetter}`;
 	};
 
 	const scrambleSentence = (sentence) => {
 		const sentenceArr = sentence.split(" ");
 		const newSentence = [];
-		sentenceArr.map(word => {
+		sentenceArr.map((word) => {
 			if (word.length > 2) {
 				newSentence.push(scrambleWord(word));
-				} else {
-					newSentence.push(word);
-				}
+			} else {
+				newSentence.push(word);
+			}
 		});
-		setScrambledSentence(newSentence.join(' '));
-		
+		setScrambledSentence(newSentence.join(" "));
 	};
-
-	console.log(scrambledSentence);
 
 	const loadGame = () => {
 		API.getSentence(counter)
@@ -59,9 +54,16 @@ const Homepage = () => {
 	};
 
 	return (
-		<div className="App">
-			<div className="page-container container-fluid">
-				<p>{scrambledSentence}</p>
+		<div className="page-container">
+			<div className="row content-row">
+				<div className="col-12 col-md-8 contentBox">
+					<div className="">
+						<div className="">
+							<h1>{scrambledSentence}</h1>
+						</div>
+					</div>
+					.
+				</div>
 			</div>
 		</div>
 	);
