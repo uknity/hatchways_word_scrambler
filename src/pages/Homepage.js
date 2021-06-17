@@ -3,14 +3,13 @@ import { useState, useEffect } from "react";
 import API from "../utils/API";
 
 const Homepage = () => {
-	// const [displaySentence, setDisplaySentence] = useState("");
-	// const [scrambledSentence, setScrambledSentence] = useState("");
+	const [scrambledSentence, setScrambledSentence] = useState("");
 
 	const counter = 1;
 
 	useEffect(() => {
 		loadGame();
-	});
+	}, []);
 
 	const scrambleWord = (word) => {
 		var length = word.length;
@@ -19,9 +18,8 @@ const Homepage = () => {
 		var lastLetter = letterArr[length-1];
 		letterArr.pop();
 		letterArr.shift();
-		console.log(letterArr);
 		const scrambledInside = (letterArr) => {
-			for (var i = 0; i < length; i++) {
+			for (var i = 0; i < length -2 ; i++) {
 					var j = Math.floor(Math.random() * length);
 					var temp = letterArr[i];
 					letterArr[i] = letterArr[j];
@@ -30,25 +28,26 @@ const Homepage = () => {
 			return letterArr.join("");
 		}
 			
-		const scrambledWord = `${firstLetter}` + `${scrambledInside(letterArr)}` + `${lastLetter}`;
-		console.log(scrambledWord);
+		// const scrambledWord = `${firstLetter}` + `${scrambledInside(letterArr)}` + `${lastLetter}`;
+		// return scrambledWord;
+		return(`${firstLetter}` + `${scrambledInside(letterArr)}` + `${lastLetter}`);
 	};
 
 	const scrambleSentence = (sentence) => {
 		const sentenceArr = sentence.split(" ");
-		
+		const newSentence = [];
 		sentenceArr.map(word => {
 			if (word.length > 2) {
-				const scrambledWord = scrambleWord(word);
-					console.log(scrambledWord);
-				};
-			
-		})
-		
-			
+				newSentence.push(scrambleWord(word));
+				} else {
+					newSentence.push(word);
+				}
+		});
+		setScrambledSentence(newSentence.join(' '));
 		
 	};
 
+	console.log(scrambledSentence);
 
 	const loadGame = () => {
 		API.getSentence(counter)
@@ -62,7 +61,7 @@ const Homepage = () => {
 	return (
 		<div className="App">
 			<div className="page-container container-fluid">
-				<p>Hello</p>
+				<p>{scrambledSentence}</p>
 			</div>
 		</div>
 	);
