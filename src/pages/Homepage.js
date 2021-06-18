@@ -2,11 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import API from "../utils/API";
 import "../../src/App.css";
+import Container from "../components/Container";
 
 const Homepage = () => {
 	const [scrambledSentence, setScrambledSentence] = useState("");
+	const [score, setScore] = useState(0);
 
-	const counter = 2;
+	const counter = 1;
 
 	useEffect(() => {
 		loadGame();
@@ -45,6 +47,7 @@ const Homepage = () => {
 	};
 
 	const loadGame = () => {
+		setScore(0);
 		API.getSentence(counter)
 			.then((res) => {
 				const unscrambledSentence = res.data.data.sentence;
@@ -53,18 +56,32 @@ const Homepage = () => {
 			.catch((err) => console.log(err));
 	};
 
+	const calcScore = () => {
+		
+	}
+
 	return (
-		<div className="page-container">
-			<div className="row content-row">
-				<div className="col-12 col-md-8 contentBox">
-					<div className="">
-						<div className="">
+		<div>
+			<Container fluid>
+				<div className="row justify-content-center" id="contentRow">
+					<div className="col-12 col-md-8" id="contentBox">
+						<div className="row text-center" id="sentence-text">
 							<h1>{scrambledSentence}</h1>
 						</div>
+						<div className="row text-center" id="directions-text">
+							<p>Guess the sentence! Start typing</p>
+							<p>The yellow blocks are meant for spaces</p>
+						</div>
+						<h2 className="row text-center" id="score">
+							<p>Score: {score}</p>
+						</h2>
 					</div>
-					.
+					<div className="row text-center" id="directions-text">
+							<div className="col-6 bg-gray"></div>
+							<div className="col-6 bg-gray"></div>
+						</div>
 				</div>
-			</div>
+			</Container>
 		</div>
 	);
 };

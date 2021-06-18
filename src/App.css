@@ -3,13 +3,26 @@ main {
   padding-right: 0px;
 }
 
-.page-container {
-  background-color: #edf0f2;
-  height: 100vh;
-  
-
-}
-
+/* scrambled sentence formatting */
 h1 {
-  color: blue;
+  color: #496b99;
 }
+
+.page-container {
+  min-height: 100vh;
+  background-color: #dfe2e6;
+}
+
+#contentRow {
+  margin: 10%;
+  margin-top: 0px;
+}
+
+#contentBox {
+  background-color: white;
+  margin-top: 15%;
+  height: 80vh;
+  border-radius: 7px;
+  padding: 7%;
+}
+
