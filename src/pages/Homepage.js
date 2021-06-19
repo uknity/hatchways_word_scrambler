@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import API from "../utils/API";
 import "../../src/App.css";
 import Container from "../components/Container";
+import WordRow from "../components/Wrapper/";
 
 const Homepage = () => {
 	const [scrambledSentence, setScrambledSentence] = useState("");
+	const [sentence, setSentence] = useState("");
 	const [score, setScore] = useState(0);
 
 	const counter = 1;
@@ -51,14 +53,15 @@ const Homepage = () => {
 		API.getSentence(counter)
 			.then((res) => {
 				const unscrambledSentence = res.data.data.sentence;
+				setSentence(unscrambledSentence);
 				scrambleSentence(unscrambledSentence);
 			})
 			.catch((err) => console.log(err));
 	};
 
-	const calcScore = () => {
-		
-	}
+	console.log(sentence);
+
+	const calcScore = () => {};
 
 	return (
 		<div>
@@ -75,11 +78,16 @@ const Homepage = () => {
 						<h2 className="row text-center" id="score">
 							<p>Score: {score}</p>
 						</h2>
-					</div>
-					<div className="row text-center" id="directions-text">
-							<div className="col-6 bg-gray"></div>
-							<div className="col-6 bg-gray"></div>
+						<div className="row text-center" id="directions-text">
+						{sentence.map((word) => (
+							<WordRow {...word} key={word}
+							
+							// handleProjectSelect={handleProjectSelect}
+							 />
+						))}
+							<div className="col-12">{sentence}</div>
 						</div>
+					</div>
 				</div>
 			</Container>
 		</div>
