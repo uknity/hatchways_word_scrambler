@@ -3,12 +3,14 @@ import { useState, useEffect } from "react";
 import API from "../utils/API";
 import "../../src/App.css";
 import Container from "../components/Container";
-import WordRow from "../components/Wrapper/";
+import WordRow from "../components/WordRow/";
 
 const Homepage = () => {
 	const [scrambledSentence, setScrambledSentence] = useState("");
 	const [sentence, setSentence] = useState("");
 	const [score, setScore] = useState(0);
+	const [sentenceArray, setSentenceArray] = useState([]);
+	// const [wordToGuess, setWordToGuess] = useState([]);
 
 	const counter = 1;
 
@@ -17,6 +19,7 @@ const Homepage = () => {
 	}, []);
 
 	const scrambleWord = (word) => {
+		// setWordToGuess(word);
 		var length = word.length;
 		var letterArr = word.split("");
 		var firstLetter = letterArr[0];
@@ -37,6 +40,7 @@ const Homepage = () => {
 
 	const scrambleSentence = (sentence) => {
 		const sentenceArr = sentence.split(" ");
+		setSentenceArray(sentenceArr);
 		const newSentence = [];
 		sentenceArr.map((word) => {
 			if (word.length > 2) {
@@ -60,6 +64,12 @@ const Homepage = () => {
 	};
 
 	console.log(sentence);
+	console.log(sentenceArray);
+	
+	const wordCounter = 0;
+
+
+	// console.log(wordToGuess);
 
 	const calcScore = () => {};
 
@@ -79,13 +89,11 @@ const Homepage = () => {
 							<p>Score: {score}</p>
 						</h2>
 						<div className="row text-center" id="directions-text">
-						{sentence.map((word) => (
-							<WordRow {...word} key={word}
-							
-							// handleProjectSelect={handleProjectSelect}
-							 />
-						))}
-							<div className="col-12">{sentence}</div>
+							{sentenceArray.map((word) => (
+								<WordRow {...word} />
+							))}
+
+							<div className="col-12"></div>
 						</div>
 					</div>
 				</div>

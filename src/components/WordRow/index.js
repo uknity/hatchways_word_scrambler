@@ -2,15 +2,19 @@ import React from "react";
 import "./style.css";
 
 function WordRow(props) {
-	// eslint-disable-next-line
-	const {word } = props;
+    console.log(props);
+	const word  = props;
     console.log(word);
+    const wordLength = word.length;
+    console.log(wordLength);
 
 	return (
 		<div className="row">
-            word.map((letter) => {
-                <div className=`col-${(12 / (word.length)) + 1}`;
-            })
+            {/* {word.map((letter) => {
+                <div className="`col-${(12 / (word.length)) + 1}`">
+                {letter}
+                </div>
+             })} */}
 			
 		</div>
 	);
