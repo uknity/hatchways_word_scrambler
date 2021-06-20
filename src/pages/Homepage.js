@@ -10,7 +10,7 @@ const Homepage = () => {
 	const [sentence, setSentence] = useState("");
 	const [score, setScore] = useState(0);
 	const [sentenceArray, setSentenceArray] = useState([]);
-	// const [wordToGuess, setWordToGuess] = useState([]);
+	
 
 	const counter = 1;
 
@@ -52,6 +52,8 @@ const Homepage = () => {
 		setScrambledSentence(newSentence.join(" "));
 	};
 
+	// const wordArray = sentenceArray.map((word) =>
+	// <)
 	const loadGame = () => {
 		setScore(0);
 		API.getSentence(counter)
@@ -89,9 +91,10 @@ const Homepage = () => {
 							<p>Score: {score}</p>
 						</h2>
 						<div className="row text-center" id="directions-text">
-							{sentenceArray.map((word) => (
-								<WordRow {...word} />
-							))}
+							<WordRow {...sentenceArray} />
+							 {/* {sentenceArray.map((word, index) => (
+								<WordRow {...word} key={index}/>
+							 ))}  */}
 
 							<div className="col-12"></div>
 						</div>

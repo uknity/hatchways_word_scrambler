@@ -1,21 +1,46 @@
 import React from "react";
 import "./style.css";
+import { useState, useEffect } from "react";
 
 function WordRow(props) {
-    console.log(props);
-	const word  = props;
-    console.log(word);
-    const wordLength = word.length;
-    console.log(wordLength);
+	const [wordToGuess, setWordToGuess] = useState([]);
+    const [spaceArray, setSpaceArray] = useState([]);
+	setSpaceArray(Object.values(props));
+    console.log(spaceArray);
+    
+    function createRows(spaceArray) {
+        const word = spaceArray.map((word) => {
+
+        })
+    }
+    
+	// console.log(spaceObject);
+    
+	// console.log(Object.entries(spaceObject));
+	// console.log(Object.entries(spaceObject)[0][1]);
+	// const spaceArray = Object.entries(spaceObject);
+	// console.log(spaceArray);
+
+	//    const spaceArrayMap = spaceArray.map((wordWithIndex) => {
+	//     const wordArray = wordWithIndex[1];
+	//     console.log(wordArray);
+	//    })
+
+	// const word  = props;
+	// console.log(word);
+	// const wordLength = Object.keys(word).length;
+	// console.log(wordLength);
+	// const numColumns = wordLength + 1;
+	// console.log(numColumns);
+	// setWordToGuess(Object.entries(word));
 
 	return (
 		<div className="row">
-            {/* {word.map((letter) => {
-                <div className="`col-${(12 / (word.length)) + 1}`">
+			{/* {wordToGuess.map((letter) => {
+                <div className="col-auto">
                 {letter}
                 </div>
              })} */}
-			
 		</div>
 	);
 }
