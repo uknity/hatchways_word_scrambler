@@ -5,12 +5,17 @@ import { useState, useEffect } from "react";
 function WordRow(props) {
 	const [wordToGuess, setWordToGuess] = useState([]);
     const [spaceArray, setSpaceArray] = useState([]);
-	setSpaceArray(Object.values(props));
-    console.log(spaceArray);
+	
+    const sentArray = Object.values(props);
+    console.log(sentArray);
+    createRows(sentArray);
     
-    function createRows(spaceArray) {
-        const word = spaceArray.map((word) => {
-
+    function createRows(sentArray) {
+       
+        const word = sentArray.map((word) => {
+            console.log(word);
+            const rowSpaces = word.length + 1;
+            console.log(rowSpaces);
         })
     }
     
