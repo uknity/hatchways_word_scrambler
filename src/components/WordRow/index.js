@@ -9,12 +9,15 @@ function WordRow(props) {
 
 	return (
 		<div>
-			{sentArray.map((word) => (
+			{sentArray.map((word, index) => (
 				<div className="row">
-                    {word.split("").map((letter) => (
-                        <div className="col" id="letterSpace">{letter}</div>
-                    ))}
-                    <div className="col" id="space"></div>
+					{word.split("").map((letter, index) => (
+						<div className="col" id="letterSpace" key={index}>
+							{letter}
+						</div>
+					))}
+
+                    {index < sentArray.length - 1 ? <div className="col" id="space"></div> : <span></span>}
 				</div>
 			))}
 		</div>
@@ -22,4 +25,3 @@ function WordRow(props) {
 }
 
 export default WordRow;
-

@@ -16,11 +16,13 @@ h1 {
 #contentRow {
   margin: 10%;
   margin-top: 0px;
+  margin-bottom: 15%;
 }
 
 #contentBox {
   background-color: white;
   margin-top: 15%;
+  
   height: 80vh;
   border-radius: 7px;
   padding: 7%;
