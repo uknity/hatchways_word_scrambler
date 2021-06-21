@@ -19,7 +19,6 @@ const Homepage = () => {
 	}, []);
 
 	const scrambleWord = (word) => {
-		// setWordToGuess(word);
 		var length = word.length;
 		var letterArr = word.split("");
 		var firstLetter = letterArr[0];
@@ -52,8 +51,6 @@ const Homepage = () => {
 		setScrambledSentence(newSentence.join(" "));
 	};
 
-	// const wordArray = sentenceArray.map((word) =>
-	// <)
 	const loadGame = () => {
 		setScore(0);
 		API.getSentence(counter)
@@ -65,15 +62,8 @@ const Homepage = () => {
 			.catch((err) => console.log(err));
 	};
 
-	console.log(sentence);
-	console.log(sentenceArray);
-	
-	const wordCounter = 0;
-
-
-	// console.log(wordToGuess);
-
 	const calcScore = () => {};
+	console.log(sentenceArray);
 
 	return (
 		<div>
@@ -92,10 +82,6 @@ const Homepage = () => {
 						</h2>
 						<div className="row text-center" id="directions-text">
 							<WordRow {...sentenceArray} />
-							 {/* {sentenceArray.map((word, index) => (
-								<WordRow {...word} key={index}/>
-							 ))}  */}
-
 							<div className="col-12"></div>
 						</div>
 					</div>
