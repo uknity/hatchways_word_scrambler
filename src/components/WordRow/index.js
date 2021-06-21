@@ -3,30 +3,30 @@ import "./style.css";
 import { useState, useEffect } from "react";
 
 function WordRow(props) {
-	console.log(props);
 	const sentArray = Object.values(props);
-	console.log(sentArray);
-
+	
 	const [guessed, setGuessed] = useState(false);
 	const [inputValue, setInputValue] = useState("");
     const [letter, setLetter] = useState("");
 
 	window.addEventListener("keydown", event => {
         setInputValue(event.key);
+        letterToGuess();
         }
     )
-    console.log(inputValue);
 
 const letterToGuess = () => {
     sentArray.map((word, index) => {
         word.split("").map((letter, index) => {
-            console.log(letter);
-            setLetter(letter)
+            if (inputValue === letter) {
+                console.log(letter);
+                setGuessed(true);
+            }
+           
         })
     })
 }
 
-letterToGuess();
 //     document.getElementByKey()
 // const validate = (inputValue) => {
 //     if (letter === inputValue) {
