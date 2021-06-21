@@ -12,7 +12,7 @@ const Homepage = () => {
 	const [sentenceArray, setSentenceArray] = useState([]);
 	
 
-	const counter = 1;
+	const counter = 2;
 
 	useEffect(() => {
 		loadGame();

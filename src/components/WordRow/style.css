@@ -8,3 +8,10 @@
     margin: 2px;
 }
 
+.notGuessed {
+    visibility: hidden;
+}
+
+.guessed {
+    visibility: visible;
+}
