@@ -8,14 +8,42 @@ function WordRow(props) {
 	console.log(sentArray);
 
 	const [guessed, setGuessed] = useState(false);
+	const [inputValue, setInputValue] = useState("");
+    const [letter, setLetter] = useState("");
+
+	window.addEventListener("keydown", event => {
+        setInputValue(event.key);
+        }
+    )
+    console.log(inputValue);
+
+const letterToGuess = () => {
+    sentArray.map((word, index) => {
+        word.split("").map((letter, index) => {
+            console.log(letter);
+            setLetter(letter)
+        })
+    })
+}
+
+letterToGuess();
+//     document.getElementByKey()
+// const validate = (inputValue) => {
+//     if (letter === inputValue) {
+//         setGuessed(true);
+//         console.log(guessed);
+//     }
+// }
 
 	return (
 		<div>
 			{sentArray.map((word, index) => (
-				<div className="row">
+				<div className="row" key={word.toString + index}>
 					{word.split("").map((letter, index) => (
-						<div className="col" id="letterSpace" key={index}>
-							<span className={guessed ? "guessed" : "notGuessed"}>{letter}</span>
+						<div className="col" id="letterSpace" key={'letter' + index} >
+							<span className={guessed ? "guessed" : "notGuessed"}>
+								{letter}
+							</span>
 						</div>
 					))}
 
@@ -26,6 +54,7 @@ function WordRow(props) {
 					)}
 				</div>
 			))}
+			{/* <input type="text" onKeyDown={handleKeyDown}></input> */}
 		</div>
 	);
 }
