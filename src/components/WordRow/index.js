@@ -9,7 +9,6 @@ function WordRow(props) {
 	//react hooks to hold state
 	const [guessed, setGuessed] = useState(false);
 	const [inputValue, setInputValue] = useState("");
-	const [letterArray, setLetterArray] = useState([]);
 
 	//counter used to increment for unique letter keys
 	var counter = 0;
@@ -20,40 +19,50 @@ function WordRow(props) {
 		return initCounter;
 	}
 
-	const createLetterArray = () => {
-		var sentenceString = sentArray.join(" ");
-		var letArray = sentenceString.split("");
-		setLetterArray(letArray);
+	const letterArray = sentArray.join(" ").split("");
 
-	}
-
-	createLetterArray();
 	console.log(letterArray);
 	
+
 	//beginning of keyDown event to evaluate user keyboard input
+	// window.addEventListener(onKeyDown, (event) => {
+	// 	console.log(event.key);
+	// });
+
+	var validatingId = 0;
+
 	window.addEventListener("keydown", (event) => {
-		setInputValue(event.key);
-		console.log(inputValue);
-	});
+		
+		console.log(event.key);
+		
+			var letterId = document.getElementById(`${validatingId}`).textContent.toLowerCase();
+			console.log(letterId);
+			if (letterId == event.key) {
+				alert('success');
+
+			}
+		
+		window.removeEventListener("keydown", (event));
+	})
 
 	return (
 		<div>
 			
 			{sentArray.map((word, index) => (
-				<div className="row" key={index}>
-					 {word.split("").map((letter) => ( 
+				<div className="row" key={(word) + (index)}>
+					 {word.split("").map((letter) => (
 						
-						<div className="col letterSpace" id={counter} key={counterFunc()}>
-							<span className={guessed ? "guessed" : "notGuessed"}>
+						<div className="col  letterSpace {guessed ? 'guessed' : 'notGuessed'}" >
+							<span id={counter} key={counterFunc()}>
 								{letter}
 							</span>
 						</div>
 					))}
 
 					{index < sentArray.length - 1 ? (
-						<div className="col space" id={counter} key={counterFunc()}></div>
+						<div className="col space" ></div>
 					) : (
-						<span></span>
+						<span id={counter} key={counterFunc()}></span>
 					)}
 				</div>
 			))}
