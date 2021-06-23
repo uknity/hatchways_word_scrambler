@@ -14,7 +14,7 @@ const Homepage = () => {
 	const [sentenceArray, setSentenceArray] = useState([]);
 	
 	//API sentence counter - will increment when each sentence puzzle is solved
-	const counter = 1;
+	const ApiCounter = 1;
 
 	//initialization function
 	useEffect(() => {
@@ -57,7 +57,7 @@ const Homepage = () => {
 	//loads game; sets score; retrieves sentences from API
 	const loadGame = () => {
 		setScore(0);
-		API.getSentence(counter)
+		API.getSentence(ApiCounter)
 			.then((res) => {
 				const unscrambledSentence = res.data.data.sentence;
 				setSentence(unscrambledSentence);
