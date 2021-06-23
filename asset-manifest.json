@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/hatchways_word_scrambler/static/css/main.ac6ac0e8.chunk.css",
+    "main.js": "/hatchways_word_scrambler/static/js/main.033ed0a1.chunk.js",
+    "main.js.map": "/hatchways_word_scrambler/static/js/main.033ed0a1.chunk.js.map",
+    "runtime-main.js": "/hatchways_word_scrambler/static/js/runtime-main.ec2dda76.js",
+    "runtime-main.js.map": "/hatchways_word_scrambler/static/js/runtime-main.ec2dda76.js.map",
+    "static/css/2.61b4cb56.chunk.css": "/hatchways_word_scrambler/static/css/2.61b4cb56.chunk.css",
+    "static/js/2.60ae125d.chunk.js": "/hatchways_word_scrambler/static/js/2.60ae125d.chunk.js",
+    "static/js/2.60ae125d.chunk.js.map": "/hatchways_word_scrambler/static/js/2.60ae125d.chunk.js.map",
+    "index.html": "/hatchways_word_scrambler/index.html",
+    "static/css/2.61b4cb56.chunk.css.map": "/hatchways_word_scrambler/static/css/2.61b4cb56.chunk.css.map",
+    "static/css/main.ac6ac0e8.chunk.css.map": "/hatchways_word_scrambler/static/css/main.ac6ac0e8.chunk.css.map",
+    "static/js/2.60ae125d.chunk.js.LICENSE.txt": "/hatchways_word_scrambler/static/js/2.60ae125d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ec2dda76.js",
+    "static/css/2.61b4cb56.chunk.css",
+    "static/js/2.60ae125d.chunk.js",
+    "static/css/main.ac6ac0e8.chunk.css",
+    "static/js/main.033ed0a1.chunk.js"
+  ]
+}
