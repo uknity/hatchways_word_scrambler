@@ -6,14 +6,17 @@ import Container from "../components/Container";
 import WordRow from "../components/WordRow/";
 
 const Homepage = () => {
+	
+	//React hooks to render state
 	const [scrambledSentence, setScrambledSentence] = useState("");
 	const [sentence, setSentence] = useState("");
 	const [score, setScore] = useState(0);
 	const [sentenceArray, setSentenceArray] = useState([]);
 	
+	//API sentence counter - will increment when each sentence puzzle is solved
+	const counter = 1;
 
-	const counter = 2;
-
+	//initialization function
 	useEffect(() => {
 		loadGame();
 	}, []);
@@ -51,6 +54,7 @@ const Homepage = () => {
 		setScrambledSentence(newSentence.join(" "));
 	};
 
+	//loads game; sets score; retrieves sentences from API
 	const loadGame = () => {
 		setScore(0);
 		API.getSentence(counter)
@@ -62,8 +66,8 @@ const Homepage = () => {
 			.catch((err) => console.log(err));
 	};
 
-	const calcScore = () => {};
-	console.log(sentenceArray);
+	//beginning of score calculation function
+	// const calcScore = () => {};
 
 	return (
 		<div>
