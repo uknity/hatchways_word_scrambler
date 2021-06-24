@@ -7,10 +7,10 @@ function WordRow(props) {
 	const sentArray = Object.values(props);
 
 	//react hooks to hold state
-	const [guessed, setGuessed] = useState(false);
+	// const [guessed, setGuessed] = useState(false);
 	const [inputValue, setInputValue] = useState("");
-	const [guessedSpace, setGuessedSpace] = useState(false);
-	const [spaceGuessed, setSpaceGuessed] = useState(false);
+	// const [guessedSpace, setGuessedSpace] = useState(false);
+	// const [spaceGuessed, setSpaceGuessed] = useState(false);
 
 	//counter used to increment for unique letter keys
 	var counter = 0;
@@ -21,6 +21,10 @@ function WordRow(props) {
 		return initCounter;
 	}
 
+	var guessedSpace = false;
+	var spaceGuessed = false;
+	var guessed = false;
+
 	const letterArray = sentArray.join(" ").split("");
 
 	console.log(letterArray);
@@ -28,13 +32,15 @@ function WordRow(props) {
 	var validatingId = 0;
 
 	window.addEventListener("keydown", (event) => {
-		console.log(validatingId);	
+		console.log(validatingId);
+		console.log(event.key);	
 		var letterCol = document.getElementById(`${validatingId}`);
 			// var letterSpace = 
 			var letterId = letterCol.firstElementChild.textContent.toLowerCase();
 			console.log(letterId);
 			if (letterId === event.key) {
-				letterCol.className = {guessedSpace};
+				guessedSpace = true;
+				// setSpaceGuessed(true);
 				// letterId.className={guessed};
 				validatingId++;
 			}
@@ -48,8 +54,8 @@ function WordRow(props) {
 				<div className="row" key={(word) + (index)}>
 					 {word.split("").map((letter) => (
 						
-						<div id={counter} key={counterFunc()} className={`col letterSpace ${guessedSpace ? 'guessedSpace' : 'notGuessedSpace'}`}  >
-							<span  className={guessed ? 'guessed' : 'notGuessed'}>
+						<div id={counter} key={counterFunc()} className={`col letterSpace ${guessedSpace  ? 'guessedSpace' : 'notGuessedSpace'}`}  >
+							<span  className={guessed  ? 'guessed' : 'notGuessed'}>
 								{letter}
 							</span>
 						</div>
