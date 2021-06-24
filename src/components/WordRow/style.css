@@ -1,17 +1,34 @@
-.letterSpace {
-    background-color:  #e1e1e1;
+.spaceNotGuessed {
+    background-color:  #ffb74d;
     margin: 3px;
 }
 
-.space {
-    background-color: #ffb74d;
-    margin: 2px;
+.spaceGuessed {
+    background-color: #4caf50;
+    margin: 3px;
+}
+
+.guessedSpace {
+    background-color: #4caf50;
+    margin: 3px;
+}
+
+.notGuessedSpace {
+    background-color: #e1e1e1;
+    margin: 3px;
 }
 
 .notGuessed {
+    background-color:  #e1e1e1;
     visibility: hidden;
+    margin: 3px;
 }
 
 .guessed {
     visibility: visible;
+    margin: 3px;
+    background-color: #4caf50;
 }
+
+
+

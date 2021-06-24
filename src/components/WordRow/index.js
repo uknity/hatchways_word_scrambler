@@ -9,6 +9,8 @@ function WordRow(props) {
 	//react hooks to hold state
 	const [guessed, setGuessed] = useState(false);
 	const [inputValue, setInputValue] = useState("");
+	const [guessedSpace, setGuessedSpace] = useState(false);
+	const [spaceGuessed, setSpaceGuessed] = useState(false);
 
 	//counter used to increment for unique letter keys
 	var counter = 0;
@@ -22,24 +24,19 @@ function WordRow(props) {
 	const letterArray = sentArray.join(" ").split("");
 
 	console.log(letterArray);
-	
-
-	//beginning of keyDown event to evaluate user keyboard input
-	// window.addEventListener(onKeyDown, (event) => {
-	// 	console.log(event.key);
-	// });
 
 	var validatingId = 0;
 
 	window.addEventListener("keydown", (event) => {
-		
-		console.log(event.key);
-		
-			var letterId = document.getElementById(`${validatingId}`).textContent.toLowerCase();
+		console.log(validatingId);	
+		var letterCol = document.getElementById(`${validatingId}`);
+			// var letterSpace = 
+			var letterId = letterCol.firstElementChild.textContent.toLowerCase();
 			console.log(letterId);
-			if (letterId == event.key) {
-				alert('success');
-
+			if (letterId === event.key) {
+				letterCol.className = {guessedSpace};
+				// letterId.className={guessed};
+				validatingId++;
 			}
 		
 		window.removeEventListener("keydown", (event));
@@ -47,22 +44,21 @@ function WordRow(props) {
 
 	return (
 		<div>
-			
 			{sentArray.map((word, index) => (
 				<div className="row" key={(word) + (index)}>
 					 {word.split("").map((letter) => (
 						
-						<div className="col  letterSpace {guessed ? 'guessed' : 'notGuessed'}" >
-							<span id={counter} key={counterFunc()}>
+						<div id={counter} key={counterFunc()} className={`col letterSpace ${guessedSpace ? 'guessedSpace' : 'notGuessedSpace'}`}  >
+							<span  className={guessed ? 'guessed' : 'notGuessed'}>
 								{letter}
 							</span>
 						</div>
 					))}
 
 					{index < sentArray.length - 1 ? (
-						<div className="col space" ></div>
+						<div id={counter} key={counterFunc()} className={`col space ${spaceGuessed ? 'spaceGuessed' : 'spaceNotGuessed'}`} ></div>
 					) : (
-						<span id={counter} key={counterFunc()}></span>
+						<span  className={guessed ? 'guessed' : 'notGuessed'}></span>
 					)}
 				</div>
 			))}
