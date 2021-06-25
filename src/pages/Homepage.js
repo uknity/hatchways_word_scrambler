@@ -12,14 +12,19 @@ const Homepage = () => {
 	const [sentence, setSentence] = useState("");
 	const [score, setScore] = useState(0);
 	const [sentenceArray, setSentenceArray] = useState([]);
+	// const [sentenceCompleted, setSentenceCompleted] = useState(false);
 	
 	//API sentence counter - will increment when each sentence puzzle is solved
 	const ApiCounter = 1;
+
+	
 
 	//initialization function
 	useEffect(() => {
 		loadGame();
 	}, []);
+
+	
 
 	const scrambleWord = (word) => {
 		var length = word.length;
@@ -69,13 +74,15 @@ const Homepage = () => {
 	//beginning of score calculation function
 	// const calcScore = () => {};
 
-	// const sentenceCompleted = () => {
-	// 	console.log('in sentence finished function');
-	// };
-
 	const sentenceCompleted = () => {
 		console.log('in sentence finished function');
-	};
+	}
+
+
+	// var sentenceCompletedFunction = () => {
+		
+	// 	console.log('in sentence finished function');
+	// };
 
 	return (
 		<div>
@@ -93,7 +100,7 @@ const Homepage = () => {
 							<p>Score: {score}</p>
 						</h2>
 						<div className="row text-center" id="directions-text">
-							<WordRow {...sentenceArray} />
+							<WordRow sentenceCompleted = {sentenceCompleted} {...sentenceArray}  />
 							<div className="col-12"></div>
 						</div>
 					</div>

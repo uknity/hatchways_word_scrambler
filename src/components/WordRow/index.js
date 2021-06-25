@@ -3,13 +3,16 @@ import "./style.css";
 import { useState, useEffect } from "react";
 
 function WordRow(props) {
+	console.log(props);
+	// var pop = props.pop();
+	// console.log(props);
+	// const { sentenceInfo } = props;
 	
 	//retrieves the array of sentence words
 	const sentArray = Object.values(props);
 	console.log(sentArray);
 
-	const [inputValue, setInputValue] = useState("");
-	// const [gameFinished, setGameFinished] = useState(false);
+	
 
 	useEffect(() => {
 		resetValidatingId();
@@ -30,9 +33,7 @@ function WordRow(props) {
 
 	const resetValidatingId = () => {
 		validatingId = 0;
-	}
-
-	
+	}	
 
 	window.addEventListener("keydown", (event) => {
 		var letterCol = document.getElementById(`${validatingId}`);
@@ -57,7 +58,7 @@ function WordRow(props) {
 				
 				if (validatingId === sentenceFinished) {
 						console.log('good job');
-						// sentenceCompleted();
+						// setSentenceCompleted(true);
 					}
 				};
 				
@@ -65,8 +66,6 @@ function WordRow(props) {
 			}
 		window.removeEventListener("keydown", event);
 	});
-
-	
 
 	return (
 		<div>
