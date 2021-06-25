@@ -37,9 +37,9 @@ function WordRow(props) {
 		var letterCol = document.getElementById(`${validatingId}`);
 		var letterSpan = letterCol.firstElementChild;
 		console.log(letterSpan);
-		if (letterSpan == " ") {
-			console.log(event.key);
-			if (event.keyCode === '32') {
+		if (letterSpan == null) {
+			console.log(event.keyCode);
+			if (event.keyCode === 32) {
 				
 					letterCol.classList.remove("spaceNotGuessed");
 					letterCol.classList.add("spaceGuessed");
