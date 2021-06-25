@@ -72,7 +72,9 @@ const Homepage = () => {
 	};
 
 	//beginning of score calculation function
-	// const calcScore = () => {};
+	const calcScore = () => {
+		setScore(score + 1);
+	};
 
 	const sentenceCompleted = () => {
 		console.log('in sentence finished function');
@@ -100,7 +102,7 @@ const Homepage = () => {
 							<p>Score: {score}</p>
 						</h2>
 						<div className="row text-center" id="directions-text">
-							<WordRow sentenceCompleted = {sentenceCompleted} {...sentenceArray}  />
+							<WordRow  sent={sentenceArray} score={score} sentenceCompleted={sentenceCompleted} calcScore={calcScore}/>
 							<div className="col-12"></div>
 						</div>
 					</div>

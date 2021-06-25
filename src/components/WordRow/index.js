@@ -3,13 +3,19 @@ import "./style.css";
 import { useState, useEffect } from "react";
 
 function WordRow(props) {
-	console.log(props);
-	// var pop = props.pop();
 	// console.log(props);
+	const {sent, score, sentenceCompleted, calcScore} = props;
+	console.log(sent);
+	console.log(score);
+	console.log(sentenceCompleted);
+	// console.log(score);
+	// console.log(sentenceCompleted);
+	// var pop = props.pop();
+	console.log(props);
 	// const { sentenceInfo } = props;
 	
 	//retrieves the array of sentence words
-	const sentArray = Object.values(props);
+	const sentArray = Object.values(sent);
 	console.log(sentArray);
 
 	
@@ -36,6 +42,7 @@ function WordRow(props) {
 	}	
 
 	window.addEventListener("keydown", (event) => {
+		event.preventDefault();
 		var letterCol = document.getElementById(`${validatingId}`);
 		var letterSpan = letterCol.firstElementChild;
 		if (letterSpan == null) {
