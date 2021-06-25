@@ -19,11 +19,11 @@ function WordRow(props) {
 		let initCounter = counter;
 		counter++;
 		return initCounter;
-	}
+	};
 
-	var guessedSpace = false;
-	var spaceGuessed = false;
-	var guessed = false;
+	// var guessedSpace = false;
+	// var spaceGuessed = false;
+	// var guessed = false;
 
 	const letterArray = sentArray.join(" ").split("");
 
@@ -33,38 +33,57 @@ function WordRow(props) {
 
 	window.addEventListener("keydown", (event) => {
 		console.log(validatingId);
-		console.log(event.key);	
+		console.log(event.keyCode);
 		var letterCol = document.getElementById(`${validatingId}`);
-			// var letterSpace = 
-			var letterId = letterCol.firstElementChild.textContent.toLowerCase();
-			console.log(letterId);
-			if (letterId === event.key) {
-				guessedSpace = true;
-				// setSpaceGuessed(true);
-				// letterId.className={guessed};
-				validatingId++;
+		var letterSpan = letterCol.firstElementChild;
+		console.log(letterSpan);
+		if (letterSpan == " ") {
+			console.log(event.key);
+			if (event.keyCode === '32') {
+				
+					letterCol.classList.remove("spaceNotGuessed");
+					letterCol.classList.add("spaceGuessed");
+					validatingId++;
+				}
+				console.log("please press the space key");
+			} else {
+				var letterId = letterSpan.textContent.toLowerCase();
+				console.log(letterId);
+				if (letterId === event.key) {
+					letterCol.classList.remove("notGuessedSpace");
+					letterCol.classList.add("guessedSpace");
+					letterSpan.classList.remove("notGuessed");
+					letterSpan.classList.add("guessed");
+					validatingId++;
+				}
 			}
 		
-		window.removeEventListener("keydown", (event));
-	})
+
+		window.removeEventListener("keydown", event);
+	});
 
 	return (
 		<div>
 			{sentArray.map((word, index) => (
-				<div className="row" key={(word) + (index)}>
-					 {word.split("").map((letter) => (
-						
-						<div id={counter} key={counterFunc()} className={`col letterSpace ${guessedSpace  ? 'guessedSpace' : 'notGuessedSpace'}`}  >
-							<span  className={guessed  ? 'guessed' : 'notGuessed'}>
-								{letter}
-							</span>
+				<div className="row" key={word + index}>
+					{word.split("").map((letter) => (
+						<div
+							id={counter}
+							key={counterFunc()}
+							className={`col letterSpace notGuessedSpace`}
+						>
+							<span className={"notGuessed"}>{letter}</span>
 						</div>
 					))}
 
 					{index < sentArray.length - 1 ? (
-						<div id={counter} key={counterFunc()} className={`col space ${spaceGuessed ? 'spaceGuessed' : 'spaceNotGuessed'}`} ></div>
+						<div
+							id={counter}
+							key={counterFunc()}
+							className={`col space spaceNotGuessed`}
+						> </div>
 					) : (
-						<span  className={guessed ? 'guessed' : 'notGuessed'}></span>
+						<span className={"notGuessed"}></span>
 					)}
 				</div>
 			))}
@@ -73,4 +92,3 @@ function WordRow(props) {
 }
 
 export default WordRow;
-
