@@ -69,6 +69,14 @@ const Homepage = () => {
 	//beginning of score calculation function
 	// const calcScore = () => {};
 
+	// const sentenceCompleted = () => {
+	// 	console.log('in sentence finished function');
+	// };
+
+	const sentenceCompleted = () => {
+		console.log('in sentence finished function');
+	};
+
 	return (
 		<div>
 			<Container fluid>
