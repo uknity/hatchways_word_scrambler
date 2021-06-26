@@ -6,25 +6,17 @@ import Container from "../components/Container";
 import WordRow from "../components/WordRow/";
 
 const Homepage = () => {
-	
 	//React hooks to render state
 	const [scrambledSentence, setScrambledSentence] = useState("");
 	const [sentence, setSentence] = useState("");
 	const [score, setScore] = useState(0);
 	const [sentenceArray, setSentenceArray] = useState([]);
-	// const [sentenceCompleted, setSentenceCompleted] = useState(false);
-	
-	//API sentence counter - will increment when each sentence puzzle is solved
-	const ApiCounter = 1;
-
-	
+	const [apiCounter, setApiCounter] = useState(1);
 
 	//initialization function
 	useEffect(() => {
 		loadGame();
 	}, []);
-
-	
 
 	const scrambleWord = (word) => {
 		var length = word.length;
@@ -61,8 +53,9 @@ const Homepage = () => {
 
 	//loads game; sets score; retrieves sentences from API
 	const loadGame = () => {
-		setScore(0);
-		API.getSentence(ApiCounter)
+		setSentenceArray([]);
+		setScrambledSentence("");
+		API.getSentence(apiCounter)
 			.then((res) => {
 				const unscrambledSentence = res.data.data.sentence;
 				setSentence(unscrambledSentence);
@@ -76,15 +69,21 @@ const Homepage = () => {
 		setScore(score + 1);
 	};
 
+	// const incrementApiCounter = () => {
+	// 	setApiCounter(apiCounter + 1);
+	// }
+
 	const sentenceCompleted = () => {
-		console.log('in sentence finished function');
+		console.log("in sentence finished function");
+		calcScore();
+	};
+
+	const nextSentence = () => {
+		console.log('button clicked');
+		setApiCounter(apiCounter + 1);
+		console.log(apiCounter);
+		loadGame();
 	}
-
-
-	// var sentenceCompletedFunction = () => {
-		
-	// 	console.log('in sentence finished function');
-	// };
 
 	return (
 		<div>
@@ -101,9 +100,22 @@ const Homepage = () => {
 						<h2 className="row text-center" id="score">
 							<p>Score: {score}</p>
 						</h2>
-						<div className="row text-center" id="directions-text">
-							<WordRow  sent={sentenceArray} score={score} sentenceCompleted={sentenceCompleted} calcScore={calcScore}/>
-							<div className="col-12"></div>
+						<div className="row text-center justify-content-center" id="directions-text">
+							<WordRow
+								sent={sentenceArray}
+								score={score}
+								sentenceCompleted={sentenceCompleted}
+								calcScore={calcScore}
+							/>
+							<div className="col-4">
+								<button
+									type="button"
+									className="btn btn-success btn-sm justify-content-center" id="nextButton"
+									onClick={nextSentence}
+								>
+									Next
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>

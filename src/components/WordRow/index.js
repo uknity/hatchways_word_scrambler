@@ -1,24 +1,17 @@
 import React from "react";
 import "./style.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 function WordRow(props) {
-	// console.log(props);
 	const {sent, score, sentenceCompleted, calcScore} = props;
 	console.log(sent);
 	console.log(score);
 	console.log(sentenceCompleted);
-	// console.log(score);
-	// console.log(sentenceCompleted);
-	// var pop = props.pop();
 	console.log(props);
-	// const { sentenceInfo } = props;
 	
 	//retrieves the array of sentence words
 	const sentArray = Object.values(sent);
 	console.log(sentArray);
-
-	
 
 	useEffect(() => {
 		resetValidatingId();
@@ -65,7 +58,7 @@ function WordRow(props) {
 				
 				if (validatingId === sentenceFinished) {
 						console.log('good job');
-						// setSentenceCompleted(true);
+						sentenceCompleted();
 					}
 				};
 				

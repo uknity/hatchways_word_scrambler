@@ -28,3 +28,9 @@ h1 {
   padding: 7%;
 }
 
+#nextButton {
+  background-color: #388e3c;
+  border-radius: 0px;
+  width: 70%;
+}
+
