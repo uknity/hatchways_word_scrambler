@@ -53,14 +53,15 @@ const Homepage = () => {
 
 	//loads game; sets score; retrieves sentences from API
 	const loadGame = () => {
-		apiCount();
-		console.log(apiCounter);
+		console.log('loadgame', apiCounter)
+		// apiCount();
+		// console.log('apiCounter in loadgame after apicount function', apiCounter);
 		setSentenceArray([]);
 		setScrambledSentence("");
 		API.getSentence(apiCounter)
 			.then((res) => {
 				const unscrambledSentence = res.data.data.sentence;
-				console.log(unscrambledSentence);
+				// console.log(unscrambledSentence);
 				setSentence(unscrambledSentence);
 				scrambleSentence(unscrambledSentence);
 			})
@@ -73,13 +74,10 @@ const Homepage = () => {
 	};
 
 	const apiCount = () => {
+		console.log(apiCounter);
 		setApiCounter(apiCounter + 1);
 	};
-	console.log(apiCounter);
-
-	// const incrementApiCounter = () => {
-	// 	setApiCounter(apiCounter + 1);
-	// }
+	console.log('apiCounter', apiCounter);
 
 	const sentenceCompleted = () => {
 		console.log("in sentence finished function");

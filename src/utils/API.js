@@ -1,9 +1,9 @@
 import axios from "axios";
 
 export default {
-    getSentence: function(counter) {
-        console.log(counter);
-        const counterNum = counter;
+    getSentence: function(apiCounter) {
+        console.log(apiCounter);
+        const counterNum = apiCounter;
       return axios.get(`https://api.hatchways.io/assessment/sentences/${counterNum}`);
     }
     
