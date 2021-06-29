@@ -7,16 +7,35 @@ import WordRow from "../components/WordRow/";
 
 const Homepage = () => {
 	//React hooks to render state
-	const [scrambledSentence, setScrambledSentence] = useState("");
-	const [sentence, setSentence] = useState("");
-	const [score, setScore] = useState(0);
+	const [unscrambledSentence, setUnscrambledSentence] = useState("");
 	const [sentenceArray, setSentenceArray] = useState([]);
-	const [apiCounter, setApiCounter] = useState(1);
+	const [scrambledSentence, setScrambledSentence] = useState("");
+	
+	// const [sentence, setSentence] = useState("");
+	// const [score, setScore] = useState(0);
+	
+	// const [apiCounter, setApiCounter] = useState(1);
+	
+
+	
+// 	const [showWordRow, setShowWordRow] = React.useState(false);
+//   const [keyId, incrementKeyValue] = React.useState(0);
 
 	//initialization function
 	useEffect(() => {
+		console.log('homepage has mounted');
 		loadGame();
 	}, []);
+
+// 	const handleToggle = () => setShowWordRow(!showWordRow);
+
+//   const handleKeyChange = () => incrementKeyValue(keyId + 1);
+
+	var apiCounter = 1;
+	// var sentenceArray =[];
+	// var scrambledSentence ="";
+	// var sentence = "";
+	var score = 0;
 
 	const scrambleWord = (word) => {
 		var length = word.length;
@@ -37,9 +56,13 @@ const Homepage = () => {
 		return `${firstLetter}` + `${scrambledInside(letterArr)}` + `${lastLetter}`;
 	};
 
-	const scrambleSentence = (sentence) => {
-		const sentenceArr = sentence.split(" ");
+	const scrambleSentence = (unscrambledSentence) => {
+		console.log(unscrambledSentence);
+		const sentenceArr = unscrambledSentence.split(" ");
+		console.log(sentenceArr);
 		setSentenceArray(sentenceArr);
+		console.log(sentenceArray);
+		// sentenceArray.push(sentenceArr);
 		const newSentence = [];
 		sentenceArr.map((word) => {
 			if (word.length > 2) {
@@ -49,33 +72,40 @@ const Homepage = () => {
 			}
 		});
 		setScrambledSentence(newSentence.join(" "));
+		// scrambledSentence = newSentence.join(" ");
 	};
 
 	//loads game; sets score; retrieves sentences from API
 	const loadGame = () => {
 		console.log('loadgame', apiCounter)
-		setSentenceArray([]);
-		setScrambledSentence("");
+		// setSentenceArray([]);
+		// setScrambledSentence("");
 		API.getSentence(apiCounter)
 			.then((res) => {
-				const unscrambledSentence = res.data.data.sentence;
-				// console.log(unscrambledSentence);
-				setSentence(unscrambledSentence);
-				scrambleSentence(unscrambledSentence);
+				const unscrambledSentence1 = res.data.data.sentence;
+				setUnscrambledSentence(unscrambledSentence1);
+				console.log(unscrambledSentence);
+				scrambleSentence(unscrambledSentence1);
 			})
 			.catch((err) => console.log(err));
 	};
 
 	//beginning of score calculation function
 	const calcScore = () => {
-		setScore(score + 1);
+		// setScore(score + 1);
+		score++;
 	};
 
 	const apiCount = () => {
-		console.log(apiCounter);
-		setApiCounter(apiCounter + 1);
+		console.log('apiCounter', apiCounter);
+		apiCounter++;
 	};
+
 	console.log('apiCounter', apiCounter);
+	console.log('sentenceArray', sentenceArray);
+	console.log('scrambledSentence', scrambledSentence);
+	console.log('unScrambledSentence', unscrambledSentence);
+	console.log('score', score);
 
 	
 	const sentenceCompleted = () => {
@@ -89,6 +119,8 @@ const Homepage = () => {
 		apiCount();
 		loadGame();
 	}
+
+	console.log(sentenceArray);
 
 	return (
 		<div>
@@ -109,9 +141,10 @@ const Homepage = () => {
 							<WordRow
 								sent={sentenceArray}
 								score={score}
+								key={apiCounter}
 								sentenceCompleted={sentenceCompleted}
 								calcScore={calcScore}
-							/>
+							/> 
 							<div className="col-4">
 								<button
 									type="button"

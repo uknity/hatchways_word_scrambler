@@ -1,104 +1,133 @@
 import React from "react";
 import "./style.css";
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 function WordRow(props) {
 	const { sent, score, sentenceCompleted, calcScore } = props;
-	console.log(sent);
-	// console.log(score);
-	// console.log(sentenceCompleted);
-	// console.log(props);
+	
+	// console.log('sent', sent);
+	// if (sent.length === 0) {
+	// 	return null;
+	// };
+	//counter used to increment for unique letter keys
+	//validating id is used to pull the ids from the letters
+	// const [counter, setCounter] = useState(0);
+	// const [validatingId, setValidatingId] = useState(0);
+	
+
+	// useEffect(() => {
+	// 	console.log('wordrow mounted');
+	// 	resetCounter();
+	// 	resetValidatingId();
+	// }, []);
 
 	//retrieves the array of sentence words
 	const sentArray = Object.values(sent);
-	// console.log(sentArray);
-
-	//counter used to increment for unique letter keys
-	//validating id is used to pull
-	var validatingId;
-	var counter;
-	// var counter = 0;
+	console.log('sentArray', sentArray);
+	
+	let counter = 0;
+	let validatingId = 0;
 
 	//increments the counter for the key of each letter in the sentence
 	const counterFunc = () => {
-		let initCounter = counter;
+		console.log('in counterFunc');
 		counter++;
-		return initCounter;
 	};
 
-	// const resetCounter = () => {
-	// 	counter = 0;
-	// };
+	const resetCounter = () => {
+		counter = 0;
+	};
+
+	const resetValidatingId = () => {
+		validatingId = 0;
+	};
 
 	const letterArray = sentArray.join(" ").split("");
 
-	
-
-	// const resetValidatingId = () => {
-	// 	validatingId = 0;
-	// };
-
 	var sentenceFinished = letterArray.length - 1;
 
-	const wordRowInit = () => {
-		validatingId = 0;
-		counter = 0;
-	}
-
-	wordRowInit();
 	console.log('sentence finished', sentenceFinished);
 
-	window.addEventListener("keydown", (event) => {
-		// event.preventDefault();
-		console.log('validatingId', validatingId);
+	
+
+	const handleKeyDown = (event) => {
+		const { key } = event;
 		console.log('counter', counter);
 		var letterCol = document.getElementById(`${validatingId}`);
+	console.log(document.getElementById(0));
+		console.log(letterCol);
 		var letterSpan = letterCol.firstElementChild;
-
-		if (letterSpan === null) {
-			if (event.keyCode === 32) {
-				letterCol.classList.remove("spaceNotGuessed");
-				letterCol.classList.add("spaceGuessed");
-				validatingId++;
-				window.removeEventListener("keydown", event)
-			} else {
-				console.log("please press the space key");
-				window.removeEventListener("keydown", event)
-			}
-		} 
+		console.log(letterSpan);
+	  };
+	
+	  useEffect(() => {
+		  resetValidatingId();
+		  resetCounter();
+		window.addEventListener('keydown', handleKeyDown);
+		// window.addEventListener('keyup', handleKeyUp);
+	// 	window.removeEventListener('keydown', handleKeyDown)
+    //   window.removeEventListener('keyup', handleKeyUp)
+	}, []);
+	
 		
-		else {
-			var letterId = letterSpan.textContent.toLowerCase();
+		// window.addEventListener("keydown", (event) => {
+		// event.preventDefault();
+		// var onKeyPressed = (event) => {
+		// 	console.log(event.key);
+		// }
+	// 	console.log('validatingId', validatingId);
+	// 	console.log('counter', counter);
+	// 	var letterCol = document.getElementById(`${validatingId}`);
+	// 	var letterSpan = letterCol.firstElementChild;
 
-			if (letterId === event.key) {
-				letterCol.classList.remove("notGuessedSpace");
-				letterCol.classList.add("guessedSpace");
-				letterSpan.classList.remove("notGuessed");
-				letterSpan.classList.add("guessed");
-				console.log('validating id', validatingId);
-				console.log(sentenceFinished);
+	// 	if (letterSpan === null) {
+	// 		if (event.keyCode === 32) {
+	// 			console.log('in event letterSpan null and keyCode 32');
+	// 			letterCol.classList.remove("spaceNotGuessed");
+	// 			letterCol.classList.add("spaceGuessed");
+	// 			validatingId++;
+	// 			window.removeEventListener("keydown", event)
+	// 		} else {
+	// 			console.log("please press the space key");
+	// 			window.removeEventListener("keydown", event)
+	// 		}
+	// 	} 
+		
+	// 	else {
+	// 		var letterId = letterSpan.textContent.toLowerCase();
 
-				if (validatingId === sentenceFinished) {
-					event.preventDefault();
-					console.log("good job");
-					window.removeEventListener("keydown", event)
-					// resetValidatingId();
-					console.log(validatingId);
-					// resetCounter();
-					props.sentenceCompleted();
-				} else {
-					validatingId++;
-					window.removeEventListener("keydown", event)
-				};
+	// 		if (letterId === event.key) {
+	// 			letterCol.classList.remove("notGuessedSpace");
+	// 			letterCol.classList.add("guessedSpace");
+	// 			letterSpan.classList.remove("notGuessed");
+	// 			letterSpan.classList.add("guessed");
+	// 			console.log('validating id', validatingId);
+	// 			console.log(sentenceFinished);
+
+	// 			if (validatingId === sentenceFinished) {
+	// 				event.preventDefault();
+	// 				console.log("good job");
+	// 				window.removeEventListener("keydown", event)
+	// 				console.log(validatingId);
+	// 				props.sentenceCompleted();
+	// 			} else {
+	// 				validatingId++;
+	// 				window.removeEventListener("keydown", event)
+	// 			};
 				
-			} else {
-				console.log('please try again');
-			}
-		}
-	});
+	// 		} else {
+	// 			console.log('please try again');
+	// 		}
+	// 	}
+	// })
+
+	// }, []);
 
 	return (
+		
 		<div>
+			
+			
 			{sentArray.map((word, index) => (
 				<div className="row" key={word + index}>
 					{word.split("").map((letter) => (
@@ -106,6 +135,9 @@ function WordRow(props) {
 							id={counterFunc()}
 							key={letter.id}
 							className={`col letterSpace notGuessedSpace`}
+							onKeyDown={handleKeyDown}
+							// onKeyUp={handleKeyUp}
+							// tabIndex={0}
 						>
 							<span className={"notGuessed"}>{letter}</span>
 						</div>
@@ -114,8 +146,10 @@ function WordRow(props) {
 					{index < sentArray.length - 1 ? (
 						<div
 							id={counterFunc()}
+							onKeyDown={handleKeyDown}
 							key={'space' + index}
 							className={`col space spaceNotGuessed`}
+							// tabIndex={0}
 						>
 							{" "}
 						</div>
@@ -124,8 +158,9 @@ function WordRow(props) {
 					)}
 				</div>
 			))}
+				
 		</div>
-	);
+					);
 }
 
 export default WordRow;
