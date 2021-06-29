@@ -54,8 +54,6 @@ const Homepage = () => {
 	//loads game; sets score; retrieves sentences from API
 	const loadGame = () => {
 		console.log('loadgame', apiCounter)
-		// apiCount();
-		// console.log('apiCounter in loadgame after apicount function', apiCounter);
 		setSentenceArray([]);
 		setScrambledSentence("");
 		API.getSentence(apiCounter)
@@ -79,14 +77,16 @@ const Homepage = () => {
 	};
 	console.log('apiCounter', apiCounter);
 
+	
 	const sentenceCompleted = () => {
 		console.log("in sentence finished function");
 		calcScore();
 	};
 
-	const nextSentence = () => {
+	const nextSentence = (event) => {
+		event.preventDefault();
 		console.log('button clicked');
-		
+		apiCount();
 		loadGame();
 	}
 

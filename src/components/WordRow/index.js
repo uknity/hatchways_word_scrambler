@@ -14,7 +14,10 @@ function WordRow(props) {
 	// console.log(sentArray);
 
 	//counter used to increment for unique letter keys
-	var counter = 0;
+	//validating id is used to pull
+	var validatingId;
+	var counter;
+	// var counter = 0;
 
 	//increments the counter for the key of each letter in the sentence
 	const counterFunc = () => {
@@ -23,60 +26,75 @@ function WordRow(props) {
 		return initCounter;
 	};
 
-	const resetCounter = () => {
-		counter = 0;
-	};
+	// const resetCounter = () => {
+	// 	counter = 0;
+	// };
 
 	const letterArray = sentArray.join(" ").split("");
 
-	//validating id is used to pull
-	var validatingId = 0;
+	
 
-	const resetValidatingId = () => {
-		validatingId = 0;
-	};
+	// const resetValidatingId = () => {
+	// 	validatingId = 0;
+	// };
 
 	var sentenceFinished = letterArray.length - 1;
 
+	const wordRowInit = () => {
+		validatingId = 0;
+		counter = 0;
+	}
+
+	wordRowInit();
+	console.log('sentence finished', sentenceFinished);
+
 	window.addEventListener("keydown", (event) => {
 		// event.preventDefault();
+		console.log('validatingId', validatingId);
+		console.log('counter', counter);
 		var letterCol = document.getElementById(`${validatingId}`);
 		var letterSpan = letterCol.firstElementChild;
 
 		if (letterSpan === null) {
 			if (event.keyCode === 32) {
-				letterCol.classList.remove("spaceNotGuessed").add("spaceGuessed");
-				// letterCol.classList.add("spaceGuessed");
+				letterCol.classList.remove("spaceNotGuessed");
+				letterCol.classList.add("spaceGuessed");
 				validatingId++;
 				window.removeEventListener("keydown", event)
 			} else {
 				console.log("please press the space key");
 				window.removeEventListener("keydown", event)
 			}
-		} else {
+		} 
+		
+		else {
 			var letterId = letterSpan.textContent.toLowerCase();
 
 			if (letterId === event.key) {
-				letterCol.classList.remove("notGuessedSpace").add("guessedSpace");
-				// letterCol.classList.add("guessedSpace");
-				letterSpan.classList.remove("notGuessed").add("guessed");
-				// letterSpan.classList.add("guessed");
-
-				let sentenceFinished = letterArray.length - 1;
+				letterCol.classList.remove("notGuessedSpace");
+				letterCol.classList.add("guessedSpace");
+				letterSpan.classList.remove("notGuessed");
+				letterSpan.classList.add("guessed");
+				console.log('validating id', validatingId);
+				console.log(sentenceFinished);
 
 				if (validatingId === sentenceFinished) {
+					event.preventDefault();
 					console.log("good job");
 					window.removeEventListener("keydown", event)
-					resetValidatingId();
+					// resetValidatingId();
 					console.log(validatingId);
-					resetCounter();
-					sentenceCompleted();
-				}
-				validatingId++;
-				window.removeEventListener("keydown", event)
+					// resetCounter();
+					props.sentenceCompleted();
+				} else {
+					validatingId++;
+					window.removeEventListener("keydown", event)
+				};
+				
+			} else {
+				console.log('please try again');
 			}
 		}
-		// window.removeEventListener("keydown", event);
 	});
 
 	return (
@@ -96,7 +114,7 @@ function WordRow(props) {
 					{index < sentArray.length - 1 ? (
 						<div
 							id={counterFunc()}
-							// key={}
+							key={'space' + index}
 							className={`col space spaceNotGuessed`}
 						>
 							{" "}
