@@ -3,11 +3,15 @@ import "./style.css";
 import { useEffect, useState, useCallback } from "react";
 
 function WordRow(props) {
-	const { sent, score, sentenceCompleted, calcScore, validatingLetterIndex } =
+	const { sent, score, sentenceCompleted, calcScore } =
 		props;
 
 	//validating id is used to pull the ids from the letters
+	// console.log(validatingLetterIndex);
+	var vli = 1;
 	// var validatingId = validatingLetterIndex;
+	// console.log(validatingId);
+
 	const sentArray = Object.values(sent);
 	const letterArray = sentArray.join(" ").split("");
 	const sentenceFinished = letterArray.length;
@@ -26,27 +30,25 @@ function WordRow(props) {
 		return (counter = 0);
 	};
 
+	const resetValidatingIndex = () => {
+		return setValidatingLetterIndex(1);
+	}
+	// var validatingLetterIndex=1;
+
 	//keydown event checks the letter ids with the key pressed, using the validating id to ensure the letters are checked in order
 	const handleKeyDown = ({ key }) => {
-		console.log('key pressed', key);
-	}
-
-	const evalFunction = () => {
-		for (let i = 0; i < sentenceFinished; i++) {
-			console.log('in evalFunction i is', i);
-			let indexNum = i;
-			let letterCol = document.getElementById(`${indexNum}`);
-			console.log(letterCol);
+			console.log(vli);
+			let letterCol = document.getElementById(vli);
 			let letterSpan = letterCol.firstElementChild;
-			console.log(indexNum);
+			console.log(letterSpan);
 
-			let keyPressed = handleKeyDown();
-			console.log(keyPressed);
 			//if letter is space block, classlist is changed
 			if (letterSpan === null) {
-				if (keyPressed === " ") {
+				if (key === " ") {
 					letterCol.classList.remove("spaceNotGuessed");
 					letterCol.classList.add("spaceGuessed");
+					vli++;
+					console.log(vli);
 				} else {
 					alert("Please press the space key.");
 				}
@@ -54,28 +56,35 @@ function WordRow(props) {
 			} else {
 				var letterId = letterSpan.textContent.toLowerCase();
 				console.log(letterId);
+				console.log(vli);
 
-				if (letterId === keyPressed) {
+				if (letterId === key) {
 					letterCol.classList.remove("notGuessedSpace");
 					letterCol.classList.add("guessedSpace");
 					letterSpan.classList.remove("notGuessed");
 					letterSpan.classList.add("guessed");
+					vli++;
 
-					if (i === sentenceFinished) {
+					if (vli === sentenceFinished) {
+						console.log('sentenceFinished', sentenceFinished);
 						alert("Good job!");
 						resetCounter();
+						resetVli();
 						props.sentenceCompleted();
 					}
 				}
 			}
 		}
-	};
 	
-evalFunction();
+	const resetVli = () => {
+		return vli=1;
+	}
+// evalFunction();
 
 	const handleKeyUp = () => {};
 
 	useEffect(() => {
+		resetVli();
 		window.addEventListener("keydown", handleKeyDown);
 		window.addEventListener("keyup", handleKeyUp);
 		return () => {
@@ -84,9 +93,9 @@ evalFunction();
 		};
 	}, []);
 
-	if (sentArray.length < 1) {
-		return null;
-	}
+	// if (sentArray.length < 1) {
+	// 	return null;
+	// }
 
 	return (
 		<div>

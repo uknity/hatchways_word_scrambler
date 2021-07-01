@@ -10,7 +10,7 @@ const Homepage = () => {
 	const [unscrambledSentence, setUnscrambledSentence] = useState("");
 	const [sentenceArray, setSentenceArray] = useState([]);
 	const [scrambledSentence, setScrambledSentence] = useState("");
-	const [validatingLetterIndex, setValidatingLetterIndex] = useState(1);
+	
 
 	//initialization function
 	useEffect(() => {
@@ -20,6 +20,7 @@ const Homepage = () => {
 
 	var apiCounter = 1;
 	var score = 0;
+	// var validatingLetterIndex = 1;
 
 	const scrambleWord = (word) => {
 		var length = word.length;
@@ -62,6 +63,7 @@ const Homepage = () => {
 	//loads game; sets score; retrieves sentences from API
 	const loadGame = () => {
 		console.log("loadgame", apiCounter);
+		
 		API.getSentence(apiCounter)
 			.then((res) => {
 				const unscrambledSentence1 = res.data.data.sentence;
@@ -91,12 +93,15 @@ const Homepage = () => {
 
 	const sentenceCompleted = () => {
 		console.log("in sentence finished function");
+		
 		calcScore();
 	};
 
 	const nextSentence = (event) => {
 		event.preventDefault();
 		console.log("button clicked");
+		// setValidatingLetterIndex(1);
+		resetValidatingIndex();
 		apiCount();
 		loadGame();
 	};
