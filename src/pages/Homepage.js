@@ -10,31 +10,15 @@ const Homepage = () => {
 	const [unscrambledSentence, setUnscrambledSentence] = useState("");
 	const [sentenceArray, setSentenceArray] = useState([]);
 	const [scrambledSentence, setScrambledSentence] = useState("");
-	
-	// const [sentence, setSentence] = useState("");
-	// const [score, setScore] = useState(0);
-	
-	// const [apiCounter, setApiCounter] = useState(1);
-	
-
-	
-// 	const [showWordRow, setShowWordRow] = React.useState(false);
-//   const [keyId, incrementKeyValue] = React.useState(0);
+	const [validatingLetterIndex, setValidatingLetterIndex] = useState(1);
 
 	//initialization function
 	useEffect(() => {
-		console.log('homepage has mounted');
+		console.log("homepage has mounted");
 		loadGame();
 	}, []);
 
-// 	const handleToggle = () => setShowWordRow(!showWordRow);
-
-//   const handleKeyChange = () => incrementKeyValue(keyId + 1);
-
 	var apiCounter = 1;
-	// var sentenceArray =[];
-	// var scrambledSentence ="";
-	// var sentence = "";
 	var score = 0;
 
 	const scrambleWord = (word) => {
@@ -77,9 +61,7 @@ const Homepage = () => {
 
 	//loads game; sets score; retrieves sentences from API
 	const loadGame = () => {
-		console.log('loadgame', apiCounter)
-		// setSentenceArray([]);
-		// setScrambledSentence("");
+		console.log("loadgame", apiCounter);
 		API.getSentence(apiCounter)
 			.then((res) => {
 				const unscrambledSentence1 = res.data.data.sentence;
@@ -97,17 +79,16 @@ const Homepage = () => {
 	};
 
 	const apiCount = () => {
-		console.log('apiCounter', apiCounter);
+		console.log("apiCounter", apiCounter);
 		apiCounter++;
 	};
 
-	console.log('apiCounter', apiCounter);
-	console.log('sentenceArray', sentenceArray);
-	console.log('scrambledSentence', scrambledSentence);
-	console.log('unScrambledSentence', unscrambledSentence);
-	console.log('score', score);
+	console.log("apiCounter", apiCounter);
+	console.log("sentenceArray", sentenceArray);
+	console.log("scrambledSentence", scrambledSentence);
+	console.log("unScrambledSentence", unscrambledSentence);
+	console.log("score", score);
 
-	
 	const sentenceCompleted = () => {
 		console.log("in sentence finished function");
 		calcScore();
@@ -115,12 +96,14 @@ const Homepage = () => {
 
 	const nextSentence = (event) => {
 		event.preventDefault();
-		console.log('button clicked');
+		console.log("button clicked");
 		apiCount();
 		loadGame();
-	}
+	};
 
+	// setValidatingLetterIndex(1);
 	console.log(sentenceArray);
+	console.log('validatingLetterIndex', validatingLetterIndex);
 
 	return (
 		<div>
@@ -137,18 +120,23 @@ const Homepage = () => {
 						<h2 className="row text-center" id="score">
 							<p>Score: {score}</p>
 						</h2>
-						<div className="row text-center justify-content-center" id="directions-text">
+						<div
+							className="row text-center justify-content-center"
+							id="directions-text"
+						>
 							<WordRow
 								sent={sentenceArray}
 								score={score}
 								key={apiCounter}
 								sentenceCompleted={sentenceCompleted}
 								calcScore={calcScore}
-							/> 
+								validatingLetterIndex={validatingLetterIndex}
+							/>
 							<div className="col-4">
 								<button
 									type="button"
-									className="btn btn-success btn-sm justify-content-center" id="nextButton"
+									className="btn btn-success btn-sm justify-content-center"
+									id="nextButton"
 									onClick={nextSentence}
 								>
 									Next
