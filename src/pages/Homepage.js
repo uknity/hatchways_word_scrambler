@@ -101,14 +101,14 @@ const Homepage = () => {
 		event.preventDefault();
 		console.log("button clicked");
 		// setValidatingLetterIndex(1);
-		resetValidatingIndex();
+		// resetValidatingIndex();
 		apiCount();
 		loadGame();
 	};
 
 	// setValidatingLetterIndex(1);
 	console.log(sentenceArray);
-	console.log('validatingLetterIndex', validatingLetterIndex);
+	// console.log('validatingLetterIndex', validatingLetterIndex);
 
 	return (
 		<div>
@@ -135,7 +135,7 @@ const Homepage = () => {
 								key={apiCounter}
 								sentenceCompleted={sentenceCompleted}
 								calcScore={calcScore}
-								validatingLetterIndex={validatingLetterIndex}
+								// validatingLetterIndex={validatingLetterIndex}
 							/>
 							<div className="col-4">
 								<button
