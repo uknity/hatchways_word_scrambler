@@ -4,12 +4,16 @@ import API from "../utils/API";
 import "../../src/App.css";
 import Container from "../components/Container";
 import WordRow from "../components/WordRow/";
+import { useSelector, useDispatch } from 'react-redux'
 
 const Homepage = () => {
 	//React hooks to render state
 	const [unscrambledSentence, setUnscrambledSentence] = useState("");
 	const [sentenceArray, setSentenceArray] = useState([]);
 	const [scrambledSentence, setScrambledSentence] = useState("");
+	// const [score, setScore] = useState(0);
+	// const [apiCounter, setApiCounter] = useState(1);
+	
 	
 
 	//initialization function
@@ -18,9 +22,12 @@ const Homepage = () => {
 		loadGame();
 	}, []);
 
-	var apiCounter = 1;
-	var score = 0;
+	 window.apiCounter = 1;
+	 window.score = 0;
+	// var score = 0;
 	// var validatingLetterIndex = 1;
+
+	
 
 	const scrambleWord = (word) => {
 		var length = word.length;
@@ -62,9 +69,9 @@ const Homepage = () => {
 
 	//loads game; sets score; retrieves sentences from API
 	const loadGame = () => {
-		console.log("loadgame", apiCounter);
+		console.log("loadgame", window.apiCounter);
 		
-		API.getSentence(apiCounter)
+		API.getSentence(window.apiCounter)
 			.then((res) => {
 				const unscrambledSentence1 = res.data.data.sentence;
 				setUnscrambledSentence(unscrambledSentence1);
@@ -76,20 +83,22 @@ const Homepage = () => {
 
 	//beginning of score calculation function
 	const calcScore = () => {
-		// setScore(score + 1);
-		score++;
+		console.log('calcscore function', window.score);
+		window.score++;
+		// score++;
 	};
 
 	const apiCount = () => {
-		console.log("apiCounter", apiCounter);
-		apiCounter++;
+		console.log("apiCounter", window.apiCounter);
+		window.apiCounter++;
+		console.log('new apicounter', window.apiCounter);
 	};
 
-	console.log("apiCounter", apiCounter);
-	console.log("sentenceArray", sentenceArray);
-	console.log("scrambledSentence", scrambledSentence);
-	console.log("unScrambledSentence", unscrambledSentence);
-	console.log("score", score);
+	// console.log("apiCounter", apiCounter);
+	// console.log("sentenceArray", sentenceArray);
+	// console.log("scrambledSentence", scrambledSentence);
+	// console.log("unScrambledSentence", unscrambledSentence);
+	// console.log("score", score);
 
 	const sentenceCompleted = () => {
 		console.log("in sentence finished function");
@@ -123,7 +132,7 @@ const Homepage = () => {
 							<p>The yellow blocks are meant for spaces</p>
 						</div>
 						<h2 className="row text-center" id="score">
-							<p>Score: {score}</p>
+							<p>Score: {window.score}</p>
 						</h2>
 						<div
 							className="row text-center justify-content-center"
@@ -131,10 +140,11 @@ const Homepage = () => {
 						>
 							<WordRow
 								sent={sentenceArray}
-								score={score}
-								key={apiCounter}
+								score={window.score}
+								key={window.apiCounter}
 								sentenceCompleted={sentenceCompleted}
 								calcScore={calcScore}
+								
 								// validatingLetterIndex={validatingLetterIndex}
 							/>
 							<div className="col-4">

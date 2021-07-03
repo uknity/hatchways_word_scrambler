@@ -1,6 +1,8 @@
 import React from "react";
 import "./style.css";
 import { useEffect, useState, useCallback } from "react";
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment } from '../../features/counter/counterSlice';
 
 function WordRow(props) {
 	const { sent, score, sentenceCompleted, calcScore } = props;
@@ -9,13 +11,24 @@ function WordRow(props) {
 	console.log("sentArray", sentArray);
 	const letterArray = sentArray.join(" ").split("");
 	console.log('letterArray length', letterArray.length);
-	const sentenceFinished = letterArray.length;
-	console.log("sentence finished", sentenceFinished);
+	
+	window.sentenceFinished  = letterArray.length;
+	
+	console.log("sentence finished", window.sentenceFinished);
+
+	// const [validatingIndex, setValidatingIndex] = useState(1);
+
+	// const incrementValidatingIndex = () => {
+	// 	setValidatingIndex(prevValidatingIndex => prevValidatingIndex + 1);
+	// }
 
 	//counter used to increment for unique letter keys
 	//validating id is used to pull the ids from the letters
 	var counter = 0;
-	var validatingId = 1;
+
+	// const validatingIndex = useSelector(state => state.counter.value);
+	// const dispatch = useDispatch();
+	
 
 	//increments the counter for the key of each letter in the sentence
 	const counterFunc = () => {
@@ -23,10 +36,12 @@ function WordRow(props) {
 		return counter;
 	};
 
-	const validIdFunc = () => {
-		validatingId++;
-		return validatingId;
-	};
+	window.validatingIndex = 1;
+
+	// const validIdFunc = () => {
+	// 	validatingId++;
+	// 	return validatingId;
+	// };
 
 	//reset counter upon new sentence load
 	const resetCounter = () => {
@@ -34,21 +49,23 @@ function WordRow(props) {
 	};
 
 	//reset validating id upon new sentence load
-	const resetValidatingId = () => {
-		return validatingId = 1;
-	};
+	// const resetValidatingId = () => {
+	// 	return validatingId = 1;
+	// };
 
 	const handleKeyDown = ({ key }) => {
-		console.log("in handle key down func", validatingId);
+		console.log("in handle key down func", window.validatingIndex);
 		console.log("key", key);
-		var letterCol = document.getElementById(`${validatingId}`);
+		var letterCol = document.getElementById(`${window.validatingIndex}`);
 		var letterSpan = letterCol.firstElementChild;
+		console.log(letterSpan);
 		if (letterSpan === null) {
 			if (key === " ") {
 				letterCol.classList.remove("spaceNotGuessed");
 				letterCol.classList.add("spaceGuessed");
-				validIdFunc();
+				// dispatch(increment());
 				// validatingId++;
+				window.validatingIndex++;
 			} else {
 				console.log("please press the space key");
 			}
@@ -61,16 +78,18 @@ function WordRow(props) {
 				letterCol.classList.add("guessedSpace");
 				letterSpan.classList.remove("notGuessed");
 				letterSpan.classList.add("guessed");
-				console.log("validating id", validatingId);
-				console.log('sentenceFinished', sentenceFinished);
+				console.log("validating id", window.validatingIndex);
+				console.log('sentenceFinished', window.sentenceFinished);
 
-				if (validatingId === sentenceFinished) {
+				if (window.validatingIndex === window.sentenceFinished) {
 					console.log("good job");
 					resetCounter();
-					resetValidatingId();
+					// resetValidatingId();
 					props.sentenceCompleted();
 				} else {
-					validIdFunc();
+					// incrementwindow.validatingIndex();
+					window.validatingIndex++;
+					console.log(window.validatingIndex);
 					// validatingId++;
 				};
 			};
