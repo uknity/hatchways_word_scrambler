@@ -4,9 +4,10 @@ import API from "../utils/API";
 import "../../src/App.css";
 import Container from "../components/Container";
 import WordRow from "../components/WordRow/";
+import { useHistory } from "react-router-dom";
 
-window.apiCounter = 1; //NEW JN
-window.score = 0; //NEW JN
+window.apiCounter = 1; 
+window.score = 0; 
 
 const Homepage = () => {
 	//React hooks to render state
@@ -40,13 +41,9 @@ const Homepage = () => {
 		return `${firstLetter}` + `${scrambledInside(letterArr)}` + `${lastLetter}`;
 	};
 	const scrambleSentence = (unscrambledSentence) => {
-		
 		const sentenceArr = unscrambledSentence.split(" ");
-
 		setSentenceArray(sentenceArr);
-
 		const newSentence = [];
-
 		sentenceArr.map((word) => {
 			if (word.length > 2) {
 				newSentence.push(scrambleWord(word));
@@ -67,8 +64,14 @@ const Homepage = () => {
 			.catch((err) => console.log(err));
 	};
 
+	let history = useHistory();
+
 	const calcScore = () => {
-		window.score++; 
+		// if (calcScore >= 10) {
+
+		// }
+		// window.score++; 
+history.push('/outcome');
 	};
 
 	const apiCount = () => {

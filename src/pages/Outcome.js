@@ -1,26 +1,18 @@
 import React from "react";
+import Container from "../components/Container";
 
+//renders outcome screen upon winning game
 function Outcome() {
-return (
-<div className="App">
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <p>
-          You win!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-);
-
-};
+	return (
+		<div>
+			<Container fluid>
+				<div className="row justify-content-center">
+					<div className="col-12 col-md-8 d-flex justify-content-center align-items-center" id="contentBox">You win!
+					</div>
+				</div>
+			</Container>
+		</div>
+	);
+}
 
 export default Outcome;
-
