@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 import { useEffect, useState, useCallback } from "react";
+const { uuid } = require('uuidv4');
 
 function WordRow(props) {
 	const { sent, score, sentenceCompleted, calcScore } = props;
@@ -89,10 +90,12 @@ function WordRow(props) {
 		};
 	}, []);
 
+	
+
 	return (
 		<div>
 			{sentArray.map((word, index) => (
-				<div className="row" key={word + index}>
+				<div className="row" key={uuid()}>
 					{word.split("").map((letter) => (
 						<div
 							id={counterFunc()}

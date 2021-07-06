@@ -71,7 +71,7 @@ const Homepage = () => {
 
 	const handleEnter = ({ key }) => {
 		console.log(key);
-		if (key == 'Enter') {
+		if (key === 'Enter') {
 			console.log('yes');
 			apiCount();
 		loadGame();
@@ -83,7 +83,7 @@ const Homepage = () => {
 	//when score hits 10, user is redirected to /outcome
 	const calcScore = () => {
 		console.log('in calcscore function');
-		if (window.score >= 10) {
+		if (window.score >= 9) {
 			history.push("/outcome");
 		} else {
 			window.score++;
@@ -96,14 +96,10 @@ const Homepage = () => {
 		window.apiCounter++;
 	};
 
-	// const handleKeyUp = () => {};
-
 	//when user completes a sentence, calcscore function is run
 	const sentenceCompleted = () => {
 		console.log('in sentence completed function');
 		calcScore();
-		
-		// handleKeypress();
 	
 	};
 
@@ -114,19 +110,7 @@ const Homepage = () => {
 		loadGame();
 	};
 
-	const keyCount = 0;
-
-	
-	// const handleKeypress = ({key}) => {
-	// 	window.addEventListener('keydown', handleKeypress);
-	// 	window.addEventListener("keyup", handleKeyUp);
-	// 	console.log(key);
-	// 		if (key.Code === 13) {
-	// 			apiCount();
-	// 			loadGame();
-	// 		}
-	// 	};
-	
+	window.keyCount = 0;
 
 	return (
 		<div>
@@ -153,13 +137,17 @@ const Homepage = () => {
 						>
 							<WordRow
 								sent={sentenceArray}
-								// score={window.apiCounter}
-								key={keyCount + 1}
+								score={window.score}
+								key={window.keyCount + 1}
 								sentenceCompleted={sentenceCompleted}
-								// calcScore={calcScore}
+								calcScore={calcScore}
 							/>
 
-							<div className="col-4">
+							
+						</div>
+						
+					</div>
+					<div className="row d-flex justify-content-center">
 									<button
 										type="button"
 										className="btn btn-success btn-sm justify-content-center"
@@ -170,8 +158,6 @@ const Homepage = () => {
 									</button>
 								
 							</div>
-						</div>
-					</div>
 				</div>
 			</Container>
 		</div>
