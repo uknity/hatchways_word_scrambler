@@ -5,6 +5,7 @@ import "../../src/App.css";
 import Container from "../components/Container";
 import WordRow from "../components/WordRow/";
 import { useHistory } from "react-router-dom";
+const { uuid } = require('uuidv4');
 
 window.apiCounter = 1;
 window.score = 0;
@@ -70,6 +71,7 @@ const Homepage = () => {
 
 
 	const handleEnter = ({ key }) => {
+		window.removeEventListener("keydown", handleEnter);
 		console.log(key);
 		if (key === 'Enter') {
 			console.log('yes');
@@ -110,7 +112,6 @@ const Homepage = () => {
 		loadGame();
 	};
 
-	window.keyCount = 0;
 
 	return (
 		<div>
@@ -138,7 +139,7 @@ const Homepage = () => {
 							<WordRow
 								sent={sentenceArray}
 								score={window.score}
-								key={window.keyCount + 1}
+								key={uuid()}
 								sentenceCompleted={sentenceCompleted}
 								calcScore={calcScore}
 							/>

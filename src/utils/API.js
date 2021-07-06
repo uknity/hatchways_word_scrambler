@@ -8,9 +8,3 @@ export default {
     }
     
   };
-
-
-// method: GET
-// url: https://api.hatchways.io/assessment/sentences/:counter
-// Replace :counter with 1 (https://api.hatchways.io/assessment/sentences/1) to get the first
-// sentence to begin with.
