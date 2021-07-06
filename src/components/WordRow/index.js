@@ -66,6 +66,7 @@ function WordRow(props) {
 				letterSpan.classList.remove("notGuessed");
 				letterSpan.classList.add("guessed");
 				if (window.validatingId === window.sentenceFinished) {
+					console.log('sentence finished');
 					resetCounter();
 					resetValidatingId();
 					validIdFunc();

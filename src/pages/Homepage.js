@@ -6,8 +6,8 @@ import Container from "../components/Container";
 import WordRow from "../components/WordRow/";
 import { useHistory } from "react-router-dom";
 
-window.apiCounter = 1; 
-window.score = 0; 
+window.apiCounter = 1;
+window.score = 0;
 
 const Homepage = () => {
 	//React hooks to render state
@@ -68,15 +68,27 @@ const Homepage = () => {
 			.catch((err) => console.log(err));
 	};
 
+
+	const handleEnter = ({ key }) => {
+		console.log(key);
+		if (key == 'Enter') {
+			console.log('yes');
+			apiCount();
+		loadGame();
+		}
+	}
 	//uses React history component to redirect to /outcome
 	let history = useHistory();
 
 	//when score hits 10, user is redirected to /outcome
 	const calcScore = () => {
-		if (calcScore >= 10) {
-			history.push('/outcome');
+		console.log('in calcscore function');
+		if (window.score >= 10) {
+			history.push("/outcome");
 		} else {
-		window.score++; }
+			window.score++;
+			window.addEventListener("keydown", handleEnter);
+		}
 	};
 
 	//keeps track of api counter
@@ -84,9 +96,15 @@ const Homepage = () => {
 		window.apiCounter++;
 	};
 
+	// const handleKeyUp = () => {};
+
 	//when user completes a sentence, calcscore function is run
 	const sentenceCompleted = () => {
+		console.log('in sentence completed function');
 		calcScore();
+		
+		// handleKeypress();
+	
 	};
 
 	//increases api count to pull next sentence and calls loadgame function for new sentence
@@ -95,7 +113,21 @@ const Homepage = () => {
 		apiCount();
 		loadGame();
 	};
+
+	const keyCount = 0;
+
 	
+	// const handleKeypress = ({key}) => {
+	// 	window.addEventListener('keydown', handleKeypress);
+	// 	window.addEventListener("keyup", handleKeyUp);
+	// 	console.log(key);
+	// 		if (key.Code === 13) {
+	// 			apiCount();
+	// 			loadGame();
+	// 		}
+	// 	};
+	
+
 	return (
 		<div>
 			<Container fluid>
@@ -121,21 +153,22 @@ const Homepage = () => {
 						>
 							<WordRow
 								sent={sentenceArray}
-								score={window.score}
-								key={window.apiCounter}
+								// score={window.apiCounter}
+								key={keyCount + 1}
 								sentenceCompleted={sentenceCompleted}
-								calcScore={calcScore}
+								// calcScore={calcScore}
 							/>
 
 							<div className="col-4">
-								<button
-									type="button"
-									className="btn btn-success btn-sm justify-content-center"
-									id="nextButton"
-									onClick={nextSentence}
-								>
-									Next
-								</button>
+									<button
+										type="button"
+										className="btn btn-success btn-sm justify-content-center"
+										id="nextButton"
+										onClick={nextSentence}
+									>
+										Next
+									</button>
+								
 							</div>
 						</div>
 					</div>
@@ -146,4 +179,3 @@ const Homepage = () => {
 };
 
 export default Homepage;
-
