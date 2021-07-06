@@ -10,7 +10,12 @@ function App() {
 		<Router>
 			<div>
 				<Switch>
-					<Route exact path="/" component={Homepage} />
+					<Route
+						exact
+						path={["/", "/hatchways_word_scrambler"]}
+						component={Homepage}
+					/>
+
 					<Route exact path="/outcome" component={Outcome} />
 					<Route component={NoMatch} />
 				</Switch>

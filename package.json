@@ -1,5 +1,6 @@
 {
 	"name": "word_scrambler",
+	"homepage": "https://uknity.github.io/hatchways_word_scrambler/",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
