@@ -5,18 +5,19 @@ import { useEffect, useState, useCallback } from "react";
 function WordRow(props) {
 	const { sent, score, sentenceCompleted, calcScore } = props;
 
-	var wordRowAdded = false;
-
 	//retrieves the array of sentence words
 	const sentArray = Object.values(sent);
 
-	//console.log("sentArray", sentArray);
+	//creates an array of letters fromo the words in the sentence array
 	const letterArray = sentArray.join(" ").split("");
 
+	//calculates the length of the letter array to determine when scrambled sentence is solved
 	window.sentenceFinished = letterArray.length;
 
+	//counter is used to assign an id to each letter in the sentence
 	var counter = 0;
 
+	//validating id is used to compare key event with letter id
 	window.validatingId = 1;
 
 	//increments the counter for the key of each letter in the sentence
@@ -25,6 +26,7 @@ function WordRow(props) {
 		return counter;
 	};
 
+	//increments the validatingId
 	const validIdFunc = () => {
 		window.validatingId++;
 		return window.validatingId;
@@ -40,10 +42,12 @@ function WordRow(props) {
 		return (window.validatingId = 1);
 	};
 
+	//evaluates keydown event to compare to letters in puzzle in order
 	const handleKeyDown = ({ key }) => {
 		var letterCol = document.getElementById(`${window.validatingId}`);
 		var letterSpan = letterCol.firstElementChild;
 
+		//if letterSpan is "null" or the space, it is evaluated here
 		if (letterSpan === null || letterSpan === undefined) {
 			if (key === " ") {
 				letterCol.classList.remove("spaceNotGuessed");
@@ -52,6 +56,7 @@ function WordRow(props) {
 			} else {
 				console.log("please press the space key");
 			}
+			//if letterSpan is a letter, it is evaluated here
 		} else {
 			var letterId = letterSpan.textContent.toLowerCase();
 
@@ -60,7 +65,7 @@ function WordRow(props) {
 				letterCol.classList.add("guessedSpace");
 				letterSpan.classList.remove("notGuessed");
 				letterSpan.classList.add("guessed");
-if (window.validatingId === window.sentenceFinished) {
+				if (window.validatingId === window.sentenceFinished) {
 					resetCounter();
 					resetValidatingId();
 					validIdFunc();
@@ -117,4 +122,3 @@ if (window.validatingId === window.sentenceFinished) {
 }
 
 export default WordRow;
-

@@ -15,11 +15,12 @@ const Homepage = () => {
 	const [sentenceArray, setSentenceArray] = useState([]);
 	const [scrambledSentence, setScrambledSentence] = useState("");
 
+	//initiates loadGame function
 	useEffect(() => {
-		
 		loadGame();
 	}, []);
 
+	//takes in words to scramble, maintains first and last letter, returns inside of the word scrambled
 	const scrambleWord = (word) => {
 		var length = word.length;
 		var letterArr = word.split("");
@@ -40,6 +41,8 @@ const Homepage = () => {
 		};
 		return `${firstLetter}` + `${scrambledInside(letterArr)}` + `${lastLetter}`;
 	};
+
+	//splits the sentence into word array, maintains words with 2- letters, sends other words to scrambled
 	const scrambleSentence = (unscrambledSentence) => {
 		const sentenceArr = unscrambledSentence.split(" ");
 		setSentenceArray(sentenceArr);
@@ -54,6 +57,7 @@ const Homepage = () => {
 		setScrambledSentence(newSentence.join(" "));
 	};
 
+	//pull sentence from API, sets unscrambled sentence for the WordRow component, and calls scrambleSentence function
 	const loadGame = () => {
 		API.getSentence(window.apiCounter)
 			.then((res) => {
@@ -64,29 +68,30 @@ const Homepage = () => {
 			.catch((err) => console.log(err));
 	};
 
+	//uses React history component to redirect to /outcome
 	let history = useHistory();
 
+	//when score hits 10, user is redirected to /outcome
 	const calcScore = () => {
-		// if (calcScore >= 10) {
-
-		// }
-		// window.score++; 
-history.push('/outcome');
+		if (calcScore >= 10) {
+			history.push('/outcome');
+		} else {
+		window.score++; }
 	};
 
+	//keeps track of api counter
 	const apiCount = () => {
-		console.log("apiCounter", window.apiCounter);
 		window.apiCounter++;
 	};
 
+	//when user completes a sentence, calcscore function is run
 	const sentenceCompleted = () => {
-		console.log("in sentence finished function");
 		calcScore();
 	};
 
+	//increases api count to pull next sentence and calls loadgame function for new sentence
 	const nextSentence = (event) => {
 		event.preventDefault();
-		console.log("button clicked");
 		apiCount();
 		loadGame();
 	};

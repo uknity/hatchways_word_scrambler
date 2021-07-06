@@ -1,6 +1,7 @@
 main {
   padding-left: 0px;
   padding-right: 0px;
+  font-family: 'Open Sans', sans-serif;
 }
 
 /* scrambled sentence formatting */
@@ -11,7 +12,7 @@ h1 {
 .page-container {
   min-height: 100vh;
   background-color: #e1e1e1;
-  padding-bottom: 20%;
+  padding-bottom: 100px;
 }
 
 #contentRow {
@@ -32,6 +33,7 @@ h1 {
   background-color: #388e3c;
   border-radius: 0px;
   width: 70%;
+  margin-top: 25px;
 }
 
 
